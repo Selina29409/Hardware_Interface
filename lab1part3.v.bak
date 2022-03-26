@@ -1,0 +1,25 @@
+module total (	input [9:0] SW, 
+					input [3:2]KEY,  
+					input CLOCK_50, 
+					output [6:0] HEX0);
+					
+					
+wire [3:0] m_00, m_01, m_10, m_11, y;
+	mode_00 (SW [3:0], m_00);
+	mode_01 (KEY [2], KEY [3], m_01);
+	mode_10 (KEY[2], CLOCK_50, m_10);
+	mode_11 (m_11);
+	mux_4to1_case_sw9sw8 (m_00, m_01, m_10, m_11, SW [9:8], y);
+	seven_seg_decoder(y, HEX0);
+endmodule
+
+module lab1part3(SW, KEY, CLOCK_50, HEX0);
+
+input[9:0]SW, [3:0]KEY, CLOCK_50;
+output[6:0]HEX0;
+
+wire[6:0]intermediate1;// HEX0 off when SW9 and SW8 are on
+wire[6:0]intermediate2;// HEX0 seven segement decoder when SW9 and SW8 are off
+wire[6:0]intermediate3;// HEX0 counter when SW9 is off and SW8 is on
+wire[6:0]intermediate4;// HEX0 off when SW9 is on and SW8 is off
+mode_11
